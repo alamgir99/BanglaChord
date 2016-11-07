@@ -1,0 +1,62 @@
+﻿@{
+    if (ViewBag.PageName == "AboutSite"){
+        ViewBag.Title = "বাংলাকর্ড সাইট সম্পর্কে";
+    }
+    else {
+        ViewBag.Title = "বাংলাকর্ড যোগাযোগ";
+    }
+    
+}
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>@ViewBag.Title</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Hind%20Siliguri">
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body>
+		<!-- Content -->
+			<div id="content">
+				<div class="inner">
+                    @if (ViewBag.PageName == "AboutSite")
+                    {
+                        @: <h3>সাইট সম্পর্কে:</h3>
+                        <p style="width:400px"> শখের বশে গিটার শেখার শুরু, সে সাথে শুরু এ সাইটের। অনেকটা নিজের
+                             খেরোথাতায় টুকটাক টিকা তুলে রাখার মতো।
+                            শুরু থেকে হিসেব করলে বহু বছর পার হয়েছে, 
+                            পরিবর্তন খুব বেশী না হলেও, 
+                            সাইটটা যে মরে যায়নি তাতেই খুশী। <br />
+
+                            আরও বহু বছর বেঁচে থাকুক এটাই আশা।
+                        </p>
+                    }
+                    else 
+                    { 
+                        @: <h3>যোগাযোগ:</h3><p>আপনার মতামত বা মন্তব্য জানতে আগ্রহী। যোগাযোগ করুন। </p>
+                    }
+				</div>
+			</div>
+    <!-- load up sidebar -->
+    @if(ViewBag.PageName=="AboutSite"){
+        Html.RenderPartial("../Shared/_SideBar", "AboutSite"); 
+    } else {
+        Html.RenderPartial("../Shared/_SideBar", "ContactUs");
+    }
+
+		<!-- Scripts -->
+			<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/skel.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="/assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="/assets/js/main.js"></script>
+
+        <div id="titleBar">
+            <a href="#sidebar" class="toggle"></a>
+            <span class="title"><a href="#">বাংলাকর্ড</a></span>
+        </div>
+	</body>
+</html>

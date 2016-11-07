@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "গানের ভূবনের সাম্প্রতিক খবরা খবর";
+}
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>@ViewBag.Title</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Hind%20Siliguri">
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body>
+		<!-- Content -->
+			<div id="content">
+				<div class="inner">
+
+                     @foreach (BanglaChord.ViewModels.PostShort post in ViewBag.posts)
+                     {
+                            Html.RenderPartial("../Shared/_BriefPost", post); 
+                     }
+                    <!-- Pagination -->
+						<div class="pagination">
+							                    <!-- Pagination -->
+						<div class="pagination">
+                            @{
+                                if(ViewBag.curPage > 1){ // dont show on page 1
+                                @: <a href="@Url.Action(ViewBag.Action , "Article", new { Page = ViewBag.curPage-1 })" class="button previous">আগের পৃষ্ঠা</a>
+                                }
+                             }
+							
+							<div class="pages">
+                                <!-- load up pager -->
+                                    @{Html.RenderPartial("../Shared/_Pager", (BanglaChord.Helpers.PagerHelper)ViewBag.Pager); }
+							</div>
+                            @{
+                                if(ViewBag.curPage < ViewBag.Pager.totPage){ // dont show on page 1
+                                @: <a href="@Url.Action(ViewBag.Action, "Article", new { Page = ViewBag.curPage+1 })" class="button next">পরের পৃষ্ঠা</a>
+                                }
+                             }
+							
+						</div>
+						</div>
+				</div>
+			</div>
+    <!-- load up sidebar -->
+
+    @{Html.RenderPartial("../Shared/_SideBar"); }
+
+		<!-- Scripts -->
+			<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/skel.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="/assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="/assets/js/main.js"></script>
+
+        <div id="titleBar">
+            <a href="#sidebar" class="toggle"></a>
+            <span class="title"><a href="#">বাংলাকর্ড</a></span>
+        </div>
+	</body>
+</html>

@@ -1,0 +1,41 @@
+﻿@model BanglaChord.Helpers.PagerHelper
+
+@{
+    Layout = null;
+}
+
+@{
+    if(Model.pageCount > 0)
+    {
+        var pages = Model.GetPages();
+        if (Model.useDot == true)
+        {
+        
+            foreach (var page in pages) 
+            {
+                if(page == ViewBag.curPage) { 
+                     @: <a href="@Url.Action(ViewBag.Action , ViewBag.PageName, new { Page = page })" class="active"> @BanglaChord.Helpers.BNDateTime.EnToBNNumber(page.ToString())</a>
+                } else {
+                     @: <a href="@Url.Action(ViewBag.Action , ViewBag.PageName, new { Page = page })">@BanglaChord.Helpers.BNDateTime.EnToBNNumber(page.ToString())</a>            
+                }
+            }
+            @:<span>&hellip;</span>
+           
+            if(ViewBag.curPage == Model.totPage) {
+			    @:<a href="@Url.Action(ViewBag.Action , ViewBag.PageName, new { Page = ViewBag.curPage })" class="active">@BanglaChord.Helpers.BNDateTime.EnToBNNumber(ViewBag.curPage.ToString())</a>
+            }else{
+                @:<a href="@Url.Action(ViewBag.Action, ViewBag.PageName, new { Page = Model.totPage })">@BanglaChord.Helpers.BNDateTime.EnToBNNumber(Model.totPage.ToString())</a>
+            }   
+        }
+        else { // no dot
+            foreach (var page in Model.GetPages()) 
+            {
+                if(page == ViewBag.curPage) { 
+                     @: <a href="@Url.Action(ViewBag.Action , ViewBag.PageName, new { Page = page })" class="active"> @BanglaChord.Helpers.BNDateTime.EnToBNNumber(page.ToString())</a>
+                } else {
+                     @: <a href="@Url.Action(ViewBag.Action ,ViewBag.PageName, new { Page = page })">@BanglaChord.Helpers.BNDateTime.EnToBNNumber(page.ToString())</a>            
+                }
+            }
+        }
+    } // pagecount > 0
+}

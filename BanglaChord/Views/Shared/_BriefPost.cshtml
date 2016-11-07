@@ -1,0 +1,57 @@
+﻿@{
+    Layout = null;
+}
+
+<!-- This is a partial view that renders a brief view of a post  -->
+<!-- Post -->
+<article class="box post post-excerpt">
+<header>
+<!--
+Note: Titles and subtitles will wrap automatically when necessary, so don't worry
+if they get too long. You can also remove the <p> entirely if you don't
+need a subtitle.
+-->
+<h2><a href="@Url.Action("Detail" , "Article", new { postId = Model.PostId, SEOTitle=Model.SEOTitle })">@Model.Title</a></h2>
+<h4>@Model.UserAlias
+    @{
+        string tw;
+        if(Model.TagWords.Length > 1) {
+            @:, ট্যাগ:
+            for(int i=0; i<Model.TagWords.Length - 1; i++) {
+                tw = Model.TagWords[i];
+                @:<a href="@Url.Action("Tag" , "Article", new { tagWord = tw.Trim(), Page=1 })"> @tw </a>|
+            }
+            //last one
+            tw = Model.TagWords[Model.TagWords.Length-1];
+            @:<a href="@Url.Action("Tag" , "Article", new { tagWord = tw.Trim(), Page=1 })"> @tw </a>
+        } else if(Model.TagWords.Length == 1) { // a single tag
+          @:, ট্যাগ:
+          tw = Model.TagWords[0];
+          @:<a href="@Url.Action("Tag" , "Article", new { tagWord = tw.Trim(), Page=1 })"> @tw </a>
+        } else {
+            //dont show the word tag, if there is no tags
+        }
+    }
+</h4>
+</header>
+<div class="info">
+
+<span class="date"><span class="month">@Model.PublishedOn.Month</span>  
+    <span class="day"> @Model.PublishedOn.Day </span><span class="year">, @Model.PublishedOn.Year</span></span>
+<!--
+Note: You can change the number of list items in "stats" to whatever you want.
+-->
+<ul class="stats">
+<li><a href="#" class="icon fa-comment">00</a></li>
+    <!--
+<li><a href="#" class="icon fa-heart">00</a></li>
+<li><a href="#" class="icon fa-twitter">00</a></li>
+        -->
+<li><a href="#" class="icon fa-facebook">00</a></li>
+</ul>
+</div>
+@(new System.Web.HtmlString(Model.TeaserText))
+<a href="@Url.Action("Detail" , "Article", new { postId = Model.PostId, SEOTitle=Model.SEOTitle })">বিস্তারিত ...</a>
+</article>
+
+<!-- Post -->

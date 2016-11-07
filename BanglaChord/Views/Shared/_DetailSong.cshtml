@@ -1,0 +1,92 @@
+﻿@{
+    Layout = null;
+}
+<!-- This is a partial view that renders a brief view of a post  -->
+<!-- Post -->
+<article class="box post post-excerpt">
+<header>
+<!--
+Note: Titles and subtitles will wrap automatically when necessary, so don't worry
+if they get too long. You can also remove the <p> entirely if you don't
+need a subtitle.
+-->
+<h2>@ViewBag.song.Title - @ViewBag.song.Artist </h2>
+    <div id="transbox"> Tans: <a href="@Url.Action("Detail" , "ChordTab", new {songId = ViewBag.song.SongId, tkey=ViewBag.song.Transpose-1, SEOTitle=ViewBag.Title})">-</a>&nbsp;&nbsp;<a href="@Url.Action("Detail" , "ChordTab", new {songId = ViewBag.song.SongId, tkey=ViewBag.song.Transpose+1, SEOTitle=ViewBag.Title})">+</a></div>
+<h4>
+@{
+   
+    var mCount = 0;
+    
+    if (ViewBag.song.LyricBy != null) {
+        @:কথা: @ViewBag.song.LyricBy, 
+        mCount++;
+    }
+    
+    if (ViewBag.song.TuneBy != null) {
+        @:সুর: @ViewBag.song.TuneBy, 
+        mCount++;
+    }
+    
+    if (ViewBag.song.Album != null) {
+        @:এলবাম: @ViewBag.song.Album, 
+        mCount++;
+    }
+    
+    if(mCount == 3) {
+      @: </h4><h4>
+    }
+}
+    @{
+        string tw;
+        if(Model.Keywords != null) {
+            if (Model.Keywords.Length > 1)
+            {
+                @:, ট্যাগ:
+                for (int i = 0; i < Model.Keywords.Length - 1; i++)
+                {
+                    tw = Model.Keywords[i];
+                    @:<a href="@Url.Action("Tag" , "Article", new { tagWord = tw.Trim(), Page=1 })"> @tw </a>|
+                }
+                //last one
+                tw = Model.Keywords[Model.Keywords.Length - 1];
+                    @:<a href="@Url.Action("Tag" , "Article", new { tagWord = tw.Trim(), Page=1 })"> @tw </a>
+            }
+            else if (Model.Keywords.Length == 1)
+            { // a single tag
+                @:, ট্যাগ:
+                tw = Model.Keywords[0];
+                @:<a href="@Url.Action("Tag" , "Article", new { tagWord = tw.Trim(), Page=1 })"> @tw </a>
+            } else {
+            //dont show the word tag, if there is no tags
+            }
+        }
+    }
+</h4>
+
+</header>
+<div class="info">
+
+<span class="date"><span class="month">@Model.PublishedOn.Month</span>  
+    <span class="day"> @Model.PublishedOn.Day </span><span class="year">, @Model.PublishedOn.Year</span></span>
+<!--
+Note: You can change the number of list items in "stats" to whatever you want.
+-->
+<ul class="stats">
+<li><a href="#" class="icon fa-comment">00</a></li>
+    <!--
+<li><a href="#" class="icon fa-heart">00</a></li>
+<li><a href="#" class="icon fa-twitter">00</a></li>
+        -->
+<li><a href="#" class="icon fa-facebook">00</a></li>
+</ul>
+</div>
+   
+<div id="songDetail">
+@(new System.Web.HtmlString(Model.Text))
+</div>
+
+@if(ViewBag.song.CommentLink != null){
+    @:<p> <a href="@ViewBag.song.CommentLink">মন্তব্য</a> </p>
+   }
+    
+</article>

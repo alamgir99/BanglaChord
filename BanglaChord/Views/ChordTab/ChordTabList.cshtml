@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "বাংলা গানের কর্ড/ট্যাবের তালিকা";
+}
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>@ViewBag.Title</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Hind%20Siliguri">
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body>
+
+		<!-- Content -->
+			<div id="content">
+				<div class="inner">
+                    @{
+                        if (ViewBag.Artist != null) { 
+                             @: <h2><span>@ViewBag.Artist এর গানের তালিকা</span></h2>
+                        } else if(ViewBag.Album != null) {
+                             @: <h2><span> @ViewBag.Album এলবামের গানের তালিকা</span></h2>
+                        }
+                        else {
+                            @: <h2><span>সব গানের তালিকা</span></h2>
+                        }   
+                    }
+                    
+                   	<table id="songlist"  border="0" style="width:100%;">
+                           <thead>
+		                        <tr>
+		                        <th> শিরোনাম</th>
+		                		<th> শিল্পী</th> 
+                                <th> এলবাম</th> 
+                            	<th> সবশেষ সম্পাদনা </th>		
+                                </tr>    
+		                 	</thead>
+                           <tbody>
+
+                            @foreach (BanglaChord.ViewModels.SongShort song in ViewBag.songs)
+                            {
+                              <tr>
+		                        <td><a href="@Url.Action("Detail" , "ChordTab", new {songId = song.SongId, tkey = 0, SEOTitle=song.SEOTitle})">@song.Title</a> </td>
+		                		<td><a href="@Url.Action("Artist" , "ChordTab", new {ArtistName = song.Artist, Page = 1})">@song.Artist</a></td> 
+                                <td><a href="@Url.Action("Album", "ChordTab", new {AlbumName = song.Album, Page = 1})"> @song.Album</a></td> 
+                            	<td>@song.PublishedOn.ToString()</td>	
+                              </tr>
+                            }
+                            </tbody>
+                     </table>
+                    
+                    <!-- Pagination -->
+						<div class="pagination">
+                            @{
+                                if(ViewBag.curPage > 1){ // dont show on page 1
+                                @: <a href="@Url.Action(ViewBag.Action , "ChordTab", new { Page = ViewBag.curPage-1 })" class="button previous">আগের পৃষ্ঠা</a>
+                                }
+                             }
+							
+							<div class="pages">
+                                <!-- load up pager -->
+                                    @{Html.RenderPartial("../Shared/_Pager", (BanglaChord.Helpers.PagerHelper)ViewBag.Pager); }
+							</div>
+                            @{
+                                if(ViewBag.curPage < ViewBag.Pager.totPage){ // dont show on page 1
+                                @: <a href="@Url.Action(ViewBag.Action, "ChordTab", new { Page = ViewBag.curPage+1 })" class="button next">পরের পৃষ্ঠা</a>
+                                }
+                             }
+							
+						</div>
+				</div> <!-- div inner-->
+			</div>
+    <!-- load up sidebar -->
+    @{Html.RenderPartial("../Shared/_SideBar", "ChordTab"); }
+
+		<!-- Scripts -->
+			<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/skel.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="/assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="/assets/js/main.js"></script>
+        <div id="titleBar">
+            <a href="#sidebar" class="toggle"></a>
+            <span class="title"><a href="#">বাংলাকর্ড</a></span>
+        </div>
+	</body>
+</html>

@@ -1,0 +1,105 @@
+﻿@{
+    Layout = null;
+}
+
+		<!-- Sidebar -->
+			<div id="sidebar">
+				<!-- Logo -->
+					<h1 id="logo"><a href="/">বাংলাকর্ড</a></h1> 
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul>
+                            @{
+                                if (ViewContext.Controller.ViewBag.PageName == "Article")
+                                {
+                                    @: <li class="current"> <a href="@Url.Action("Index", "Article", new {Page = 1})">গানের ভুবন</a></li>
+                                }
+                                else {
+                                    @: <li> <a href="@Url.Action("Index", "Article", new {Page = 1})">গানের ভুবন</a></li>
+                                }
+                                if (ViewContext.Controller.ViewBag.PageName == "ChordTab")
+                                {
+                                    @: <li class="current"><a href="@Url.Action("Index", "ChordTab", new {Page = 1})">গানের কর্ড</a></li>
+                                }
+                                else {
+                                    @: <li><a href="@Url.Action("Index", "ChordTab", new {Page = 1})">গানের কর্ড</a></li>
+                                }
+                                if (ViewContext.Controller.ViewBag.PageName == "AboutSite")
+                                {
+                                    @:<li class="current"><a href="@Url.Action("AboutSite", "AboutContactUs")">সাইট সম্পর্কে</a></li>
+                                }
+                                else {
+                                    @:<li><a href="@Url.Action("AboutSite", "AboutContactUs")">সাইট সম্পর্কে</a></li>
+                                }
+
+                                if (ViewContext.Controller.ViewBag.PageName == "ContactUs")
+                                {
+                                    @:<li class="current"><a href="@Url.Action("ContactUs", "AboutContactUs")">যোগাযোগ</a></li>
+                                }
+                                else {
+                                    @:<li><a href="@Url.Action("ContactUs", "AboutContactUs")">যোগাযোগ</a></li>
+                                }
+                             }
+						</ul>
+					</nav>
+
+                	<!-- app ad -->
+					<section class="box text-style1">
+						<p style="text-align:center;">বাংলাকর্ডের এপ পাওয়া যাচ্ছে। ডাউনলোড করুন।
+                            <a href="@Url.Action("App","NotDoneYet")"><img src="/images/google_play.png" /> </a> 
+                            <a href="@Url.Action("App","NotDoneYet")"><img src="/images/app_store.png" /> </a>
+						</p>
+					</section>
+
+				<!-- Search -->
+					<section class="box search">
+						<form method="post" action="#">
+							<input type="text" class="text" name="search" placeholder="অনুসন্ধান" />
+						</form>
+					</section>
+
+				<!-- Text -->
+					<section class="box text-style1">
+						<div class="inner">
+							<p>
+								গান ভালবেসে গান।
+							</p>
+						</div>
+					</section>
+
+				<!-- Recent Posts -->
+                <!--
+					<section class="box recent-posts">
+						<header>
+							<h2>সাম্প্রতিক খবর</h2>
+						</header>
+						<ul>
+							<li><a href="#">Lorem ipsum dolor</a></li>
+							<li><a href="#">Feugiat nisl aliquam</a></li>
+							<li><a href="#">Sed dolore magna</a></li>
+							<li><a href="#">Malesuada commodo</a></li>
+							<li><a href="#">Ipsum metus nullam</a></li>
+						</ul>
+					</section>
+                -->
+				<!-- Recent songs -->
+					<section class="box recent-comments">
+						<header>
+							<h2>সাম্প্রতিক গান/কর্ড</h2>
+						</header>
+						<ul>
+                            @foreach(BanglaChord.Models.SelectedSong ss in ViewContext.Controller.ViewBag.LatestSongs) { 
+							    <li><a href="@Url.Action("Detail", "ChordTab", new {songId=ss.SongId})">@ss.Title</a></li>
+							}
+						</ul>
+					</section>
+
+				<!-- Copyright -->
+					<ul id="copyright">
+						<li>&copy; আলমগীর মোহাম্মদ </li><li> থিম সৌজন্য: <a href="http://html5up.net">HTML5Up</a></li>
+					</ul>
+
+			</div>
+
+	

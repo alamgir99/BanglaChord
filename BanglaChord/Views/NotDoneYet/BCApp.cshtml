@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Banglachord App for Android and iOS";
+}
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>@ViewBag.Title</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Hind%20Siliguri">
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body>
+
+		<!-- Content -->
+			<div id="content">
+				<div class="inner">
+                    <h2>Android and iOS app for Banglachord</h2>
+                    <p>
+                        @ViewBag.Message
+                    </p>
+    			</div>
+			</div>
+    <!-- load up sidebar -->
+    @{Html.RenderPartial("../Shared/_SideBar"); }
+
+		<!-- Scripts -->
+			<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/skel.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="/assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="/assets/js/main.js"></script>
+        <div id="titleBar">
+            <a href="#sidebar" class="toggle"></a>
+            <span class="title"><a href="#">বাংলাকর্ড</a></span>
+        </div>
+	</body>
+</html>
